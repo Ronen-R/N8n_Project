@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GTA V Chat Bot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>GTA V Chat Bot</h1>
+  <h2>Instructions:</h2>
+  <p>Welcome to GTA V Chat Bot!</p>
+  <p>Please click on the "+" icon to start chatting with the bot.</p>
+
+  <div class="plus-button" onclick="openChat()">+</div>
+
+  <div id="chatBox" class="hidden">
+    <div id="chatHeader">Hello User! What do you wanna know about GTA V?</div>
+    <textarea id="userInput" placeholder="Type your question here..."></textarea>
+    <button onclick="sendPrompt()">Send</button>
+    <div id="responseBox"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

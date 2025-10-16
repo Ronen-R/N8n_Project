@@ -1,0 +1,374 @@
+{
+  "name": "N8n_Project_2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Birthday_greetings",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        0
+      ],
+      "id": "48c239cf-e720-4545-9c13-a64bfd90cba9",
+      "name": "Webhook",
+      "webhookId": "1aac153e-a6c4-4a0a-8df1-d433470dbcb1"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        -160
+      ],
+      "id": "0a130d49-d6aa-4a47-bf70-29883cc56f2a",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"status\": \"success\",\n  \"recordId\": \"{{$json.id}}\",\n  \"recipient\": \"{{$json.fields.Email}}\",\n  \"preview\": \"{{$json.fields['Ai Greeting']}}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1088,
+        0
+      ],
+      "id": "0189717b-ad7f-429b-bb83-9539a8081189",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appmfVhnxT8gO6iPm",
+          "mode": "list",
+          "cachedResultName": "Birthday greetings",
+          "cachedResultUrl": "https://airtable.com/appmfVhnxT8gO6iPm"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl6wjaphMy0glOFl",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appmfVhnxT8gO6iPm/tbl6wjaphMy0glOFl"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{$node[\"Webhook\"].json.recipient_name || \"Friend\"}}\n",
+            "Sender name": "={{$node[\"Webhook\"].json.sender_name || \"Friend\"}}\n",
+            "Ai Greeting": "={{ $json.content.parts[0].text }}",
+            "Gender": "={{$node[\"Webhook\"].json.recipient_gender || \"they\"}}\n",
+            "Email": "={{$node[\"Webhook\"].json.recipient_email || \"renov.ronen@gmail.com\"}}\n",
+            "Birthday": "2025-09-15T00:18:00",
+            "Send Date": "={{ new Date().toISOString() }}",
+            "Favorite topic": "={{$node[\"Webhook\"].json.liked_topics || \"\"}}\n"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Sender name",
+              "displayName": "Sender name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Ai Greeting",
+              "displayName": "Ai Greeting",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Birthday",
+              "displayName": "Birthday",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Favorite topic",
+              "displayName": "Favorite topic",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Send Date",
+              "displayName": "Send Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "typecast": true
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        400,
+        0
+      ],
+      "id": "d4fc187d-4d09-4c6f-bce4-777973c45577",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "CilnkopICjCIlyQP",
+          "name": "RonenR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Write a warm birthday greeting (80–120 words).\n\nrecipient_name: {{$node[\"Webhook\"].json.recipient_name || \"Friend\"}}\nsender_name:   {{$node[\"Webhook\"].json.sender_name   || \"Your friend\"}}\nrecipient_gender: {{$node[\"Webhook\"].json.recipient_gender || \"they\"}}\nliked_topics:  {{$node[\"Webhook\"].json.liked_topics  || \"good times\"}}\n\nRequirements:\n- Use gender-correct phrasing for the recipient.\n- Weave 2–3 liked topics naturally.\n- Close with: — {{$node[\"Webhook\"].json.sender_name || \"Your friend\"}}\n- If any field is missing, infer gracefully.\n\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        64,
+        0
+      ],
+      "id": "2945ce05-5ce3-4b27-b5d9-51132b30cc63",
+      "name": "Gemini Greeting",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NqDxP1QtygRREKjs",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "=Your birthday greeting was sent to {{\n  $node[\"Create a record\"].json.fields.Name\n  || $node[\"Webhook\"].json.recipient_name\n  || \"Friend\"\n}}\n",
+        "textContent": "=Hi {{ $node[\"Webhook\"].json.sender_name || \"Friend\" }},\n\nHere is the greeting we sent to {{\n  $node[\"Create a record\"].json.fields.Name\n  || $node[\"Webhook\"].json.recipient_name\n  || \"Friend\"\n}}:\n\n{{ \n  $node[\"Create a record\"].json.fields[\"Ai Greeting\"]\n  || $node[\"Gemini Greeting\"].json.text\n  || \"Wishing you a fantastic year ahead!\"\n}}\n\n",
+        "sender": "renov.ronen@gmail.com",
+        "receipients": "={{ ($node[\"Webhook\"].json.sender_email || \"renov.ronen@gmail.com\").trim() }}\n",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.sendInBlue",
+      "typeVersion": 1,
+      "position": [
+        768,
+        0
+      ],
+      "id": "974fb627-a774-41c0-a94a-94861c6c333b",
+      "name": "Brevo-Sent",
+      "credentials": {
+        "sendInBlueApi": {
+          "id": "v495t4zwCdQFajK4",
+          "name": "Brevo account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "=Happy Birthday, {{ $json.fields.Name || $node[\"Webhook\"].json.recipient_name }}\n",
+        "textContent": "=Hey {{ $json.fields.Name || $node[\"Webhook\"].json.recipient_name }}, 🎉\n\n{{ $json.fields[\"Ai Greeting\"] || $node[\"Gemini Greeting\"].json.text }}\n\n",
+        "sender": "=renov.ronen@gmail.com",
+        "receipients": "={{ ($json.fields.Email || $node[\"Webhook\"].json.recipient_email || \"\").trim() }}\n",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.sendInBlue",
+      "typeVersion": 1,
+      "position": [
+        560,
+        0
+      ],
+      "id": "3189aa32-9e73-4388-aa00-80aee5c0afed",
+      "name": "Brevo-Sender",
+      "credentials": {
+        "sendInBlueApi": {
+          "id": "v495t4zwCdQFajK4",
+          "name": "Brevo account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Gemini Greeting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        []
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Brevo-Sender",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini Greeting": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brevo-Sent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brevo-Sender": {
+      "main": [
+        [
+          {
+            "node": "Brevo-Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7731bb79-bc4c-4c4c-8150-e13ec78dff26",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "67814d2ee7adfab556656c5e55dceed56296a800fb15b03fc465ee1aeb43473b"
+  },
+  "id": "RYr74joH6xnmw3MO",
+  "tags": []
+}
